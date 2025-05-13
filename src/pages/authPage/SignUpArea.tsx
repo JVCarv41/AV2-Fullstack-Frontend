@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import registerUser from '../../api/registerUser';
+import { toast } from 'react-toastify'
+import registerUser from '../../api/RegisterUser';
 
-function SignUpArea() {
+interface SignUpAreaProps{
+  backendUrl:string;
+}
+
+function SignUpArea({backendUrl}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,8 +31,7 @@ function SignUpArea() {
 
     try {
       setIsLoading(true);
-      const backendUrl = (import.meta as any).env.VITE_BACKEND_URL;
-  
+
       if (!backendUrl) {
         throw new Error('Backend URL is not configured');
       }
@@ -41,12 +45,14 @@ function SignUpArea() {
       );
 
       setSuccessMessage(response.message);
+      toast.success("User successfully created")
       setName('');
       setEmail('');
       setPassword('');
       
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
+      // setError();
+      toast.error(err instanceof Error ? err.message : 'Registration failed')
       console.error('Registration error:', err);
     } finally {
       setIsLoading(false);

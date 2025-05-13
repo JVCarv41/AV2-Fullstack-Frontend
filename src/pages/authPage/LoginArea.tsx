@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import loginUser from '../../api/loginUser'; // Adjust path as needed
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import LoginUser from '../../api/LoginUser';
 
+interface LoginAreaProps{
+  backendUrl:string;
+}
 interface LoginResponse {
   message: string;
   token: string;
 }
 
-function LoginArea() {
+function LoginArea({backendUrl}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // Add this line
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -23,30 +29,31 @@ function LoginArea() {
 
     try {
       setIsLoading(true);
-      const backendUrl = (import.meta as any).env.VITE_BACKEND_URL;
       
       if (!backendUrl) {
         throw new Error('Backend URL is not configured');
       }
-
-      console.log('Attempting login with:', { email, password: '******' });
       
-      const response = await loginUser(backendUrl, email, password);
+      const response = await LoginUser(backendUrl, email, password);
       
       console.log('Login successful:', response.message);
+      toast.success("Login successful!")
       
       // Store the JWT token in localStorage
       localStorage.setItem('authToken', response.token);
       
-      // Show success message and redirect or update app state
-      alert('Login Successful!');
-      
-      // Optional: Redirect to dashboard or home page
-      // window.location.href = '/dashboard';
+      // Redirect to shopping list page after login
+      navigate('/shopping-list'); // Change the path as needed
 
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Login failed';
-      setError(errorMessage);
+    } catch (err: any) {
+      // Check for Axios error and access error.response?.data.error
+      let errorMessage = 'Login failed';
+      if (err.response?.data?.error) {
+        errorMessage = err.response.data.error;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      toast.error(errorMessage)
       console.error('Login error:', err);
     } finally {
       setIsLoading(false);

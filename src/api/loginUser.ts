@@ -10,7 +10,7 @@ interface LoginResponse {
   token: string;
 }
 
-async function loginUser(
+async function LoginUser(
   apiUrl: string,
   email: string,
   password: string
@@ -40,31 +40,22 @@ async function loginUser(
     
     return response.data;
   } catch (error) {
+    let errorMessage = `An unexpected error occurred during ${method} request`;
     if (axios.isAxiosError(error)) {
-      console.error(`${method} request failed to ${fullUrl}`, {
-        method,
-        url: error.config?.url,
-        status: error.response?.status,
-        code: error.code,
-        message: error.message,
-        responseData: error.response?.data
-      });
-
       if (error.code === 'ECONNABORTED') {
-        throw new Error(`${method} request to ${fullUrl} timed out after ${timeoutSeconds} seconds`);
+        errorMessage = `${method} request to ${fullUrl} timed out after ${timeoutSeconds} seconds`;
       } else if (error.code === 'ERR_NETWORK') {
-        throw new Error(`Network error during ${method} request to ${fullUrl}`);
+        errorMessage = `Network error during ${method} request to ${fullUrl}`;
       } else if (error.response) {
-        throw new Error(
-          error.response.data?.message || 
-          `${method} request failed with status ${error.response.status}`
-        );
+        errorMessage =
+          error.response.data?.message ||
+          `${method} request failed with status ${error.response.status}`;
       }
     }
-    
-    console.error(`Unexpected error during ${method} request:`, error);
-    throw new Error(`An unexpected error occurred during ${method} request`);
+    // Only one error log here
+    // console.error(errorMessage, error);
+    throw error;
   }
 }
 
-export default loginUser;
+export default LoginUser;

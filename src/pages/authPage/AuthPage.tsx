@@ -4,12 +4,14 @@ import SignUpArea from "./SignUpArea";
 import "./AuthArea.css";
 
 function AuthPage() {
+  const backendUrl:string = (import.meta as any).env.VITE_BACKEND_URL;
+
   return (
     <div className="auth-page">
       <h1>Meaningful Title</h1>
       <div className="auth-container">
-        <SignUpArea />
-        <LoginArea />
+        <SignUpArea backendUrl={backendUrl}/>
+        <LoginArea backendUrl={backendUrl} />
       </div>
     </div>
   );

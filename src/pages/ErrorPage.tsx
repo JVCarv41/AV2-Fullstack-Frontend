@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function AuthPage() {
+function ErrorPage() {
   return (
     <div className="auth-page">
       <h1>Error 404: Not Found</h1>
@@ -10,4 +10,4 @@ function AuthPage() {
   );
 }
 
-export default AuthPage;
+export default ErrorPage;
