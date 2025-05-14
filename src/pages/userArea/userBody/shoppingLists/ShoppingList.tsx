@@ -1,12 +1,14 @@
 import React from "react";
-import "../UserPage.css";
-import { ShoppingList as ShoppingListType } from "../../../api/GetAllLists";
+import "./ShoppingListArea.css";
+import { ShoppingListType } from "../../../../interfaces//shoppingListInterfaces";
+import DeleteListButton from "./DeleteListButton";
 
 interface ShoppingListProps {
   list: ShoppingListType;
+  setLists: React.Dispatch<React.SetStateAction<ShoppingListType[]>>;
 }
 
-function ShoppingList({ list }: ShoppingListProps) {
+function ShoppingList({ list, setLists }: ShoppingListProps) {
   const formattedDate = list.date ? list.date.slice(0, 10) : "";
 
   // Group products by category
@@ -20,7 +22,13 @@ function ShoppingList({ list }: ShoppingListProps) {
 
   return (
     <div className="shopping-list">
-      <h2>Shopping List - {formattedDate}</h2>
+      <div className="shopping-list-header">
+        <h2>Shopping List - {formattedDate}</h2>
+        <div className="shopping-list-header-buttons">
+          <button>Edit List</button>
+          <DeleteListButton listId={list._id} setLists={setLists} />
+        </div>
+      </div>
       {Object.entries(productsByCategory).map(([category, products]) => (
         <div key={category}>
           <h3>{category}</h3>

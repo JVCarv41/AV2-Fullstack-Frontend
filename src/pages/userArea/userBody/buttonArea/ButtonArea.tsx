@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../UserPage.css";
-import GetAllLists, { ShoppingList } from "../../../api/GetAllLists";
+import "./ButtonArea.css";
+import GetAllLists, { ShoppingList } from "../../../../api/GetAllLists";
 
 function ButtonArea({ setLists, setCount }) {
   async function handleGetLists() {
