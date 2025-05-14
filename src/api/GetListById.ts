@@ -1,0 +1,61 @@
+import axios from "axios";
+import { ShoppingListType } from "../interfaces/shoppingListInterfaces";
+
+export interface GetListByIdResponse {
+  data: ShoppingListType;
+}
+
+async function GetListById(
+  apiUrl: string,
+  token: string,
+  listId: string
+): Promise<GetListByIdResponse> {
+  const method = "GET";
+  const fullUrl = `${apiUrl}/api/shopping/${listId}`;
+  const timeoutSeconds = 20;
+
+  try {
+    console.log("Requesting list by ID", {
+      url: fullUrl,
+      token: token,
+      listId: listId,
+    });
+    const response = await axios.get<ShoppingListType>(
+      fullUrl,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        timeout: 1000 * timeoutSeconds,
+      }
+    );
+
+    console.log("Response from backend:", response.data);
+
+    return {
+      data: response.data,
+    };
+  } catch (error) {
+    let errorMessage = `An unexpected error occurred during ${method} request.`;
+    if (axios.isAxiosError(error)) {
+      if (error.code === "ECONNABORTED") {
+        errorMessage = `${method} request to ${fullUrl} timed out after ${timeoutSeconds} seconds.`;
+      } else if (error.code === "ERR_NETWORK") {
+        errorMessage = `Network error during ${method} request to ${fullUrl}.`;
+      } else if (error.response) {
+        errorMessage =
+          error.response.data?.message ||
+          `${method} request failed with status ${error.response.status}.`;
+        if (error.status === 401) {
+          errorMessage += " Please, verify if the token is valid.";
+        }
+      }
+    }
+    console.error(errorMessage);
+    throw error;
+  }
+}
+
+export default GetListById;
