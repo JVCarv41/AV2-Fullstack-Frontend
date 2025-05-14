@@ -1,23 +1,9 @@
 import axios from "axios";
-
-export interface Product {
-  name: string;
-  category: string;
-  quantity: number;
-  unit: string;
-}
-
-export interface ShoppingList {
-  _id: string;
-  date: string;
-  products: Product[];
-}
-
+import { ShoppingListType } from "../interfaces/shoppingListInterfaces";
 export interface GetAllListsResponse {
-  data: ShoppingList[];
+  data: ShoppingListType[];
   count: number;
 }
-
 async function GetAllLists(
   apiUrl: string,
   token: string
@@ -31,7 +17,7 @@ async function GetAllLists(
       url: fullUrl,
       token: token,
     });
-    const response = await axios.get<ShoppingList[]>(
+    const response = await axios.get<ShoppingListType[]>(
       fullUrl,
       {
         headers: {
