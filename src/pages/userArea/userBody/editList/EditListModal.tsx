@@ -2,20 +2,24 @@ import React, { useState } from "react";
 import {
   ShoppingListType,
   ProductType,
-} from "../../../../../interfaces/shoppingListInterfaces";
+} from "../../../../interfaces/shoppingListInterfaces";
 import "./EditList.css";
 import ProductInput from "./ProductInput";
-import PutList from "../../../../../api/PutList";
-import PatchList from "../../../../../api/PatchList";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+
+// APIs
+import PutList from "../../../../api/PutList";
+import PatchList from "../../../../api/PatchList";
+import CreateList from "../../../../api/CreateList";
 
 interface EditListModalProps {
   mode: "edit" | "create";
   list?: ShoppingListType;
   onClose: () => void;
   onSave: (list: ShoppingListType) => void;
+  setLists: React.Dispatch<React.SetStateAction<ShoppingListType[]>>;
 }
 
 const defaultList: ShoppingListType = {
@@ -24,7 +28,7 @@ const defaultList: ShoppingListType = {
   products: [],
 };
 
-function EditListModal({ mode, list, onClose, onSave }: EditListModalProps) {
+function EditListModal({ mode, list, onClose, onSave, setLists }: EditListModalProps) {
   // Store date as Date object
   const initialDate = list?.date ? new Date(list.date) : null;
   const [date, setDate] = useState<Date | null>(initialDate);
@@ -56,7 +60,10 @@ function EditListModal({ mode, list, onClose, onSave }: EditListModalProps) {
     setProducts((prev) => prev.filter((_, i) => i !== idx));
   }
 
-  function callApiEditList(original: ShoppingListType, updated: ShoppingListType) {
+  function callApiEditList(
+    original: ShoppingListType,
+    updated: ShoppingListType
+  ) {
     const apiUrl = (import.meta as any).env.VITE_BACKEND_URL;
     const token = localStorage.getItem("authToken") || "";
     const listId: string = list?._id ?? "";
@@ -97,6 +104,12 @@ function EditListModal({ mode, list, onClose, onSave }: EditListModalProps) {
     }
   }
 
+  function callApiAddList(list: ShoppingListType) {
+    const apiUrl = (import.meta as any).env.VITE_BACKEND_URL;
+    const token = localStorage.getItem("authToken") || "";
+    CreateList(apiUrl, token, list);
+  }
+
   // Submit the changes
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -106,54 +119,56 @@ function EditListModal({ mode, list, onClose, onSave }: EditListModalProps) {
       products,
     };
 
-    callApiEditList(list || defaultList, newList);
+    if (mode === "edit") {
+      console.log("Called API to edit list")
+      callApiEditList(list || defaultList, newList);
+    } else if (mode === "create") {
+      console.log("Called API to create new list")
+      callApiAddList(newList);
+    }
     onSave(newList);
   }
 
   return (
-    <div className="edit-list-modal-backdrop">
-      <div className="edit-list-modal">
-        <h2>
-          {mode === "edit" ? "Edit Shopping List" : "Create Shopping List"}
-        </h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Date:
-            <DatePicker
-              selected={date}
-              onChange={dateObj => setDate(dateObj)}
-              dateFormat="yyyy-MM-dd"
-            />
-          </label>
-          <div>
-            <strong>Products:</strong>
-            <ul>
-              {products.map((product, idx) => (
-                <ProductInput
-                  key={idx}
-                  product={product}
-                  idx={idx}
-                  onChange={handleProductChange}
-                  onRemove={handleRemoveProduct}
-                />
-              ))}
-            </ul>
-            <button
-              type="button"
-              onClick={handleAddProduct}
-              className="edit-list-add-product"
-            >
-              Add Product
-            </button>
-          </div>
-          <div className="modal-buttons">
-            <button type="submit">{mode === "edit" ? "Save" : "Create"}</button>
-            <button type="button" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
+    <div className="edit-list-modal">
+      <h2>{mode === "edit" ? "Edit Shopping List" : "Create Shopping List"}</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Date:
+          <DatePicker
+            selected={date}
+            onChange={(dateObj) => setDate(dateObj)}
+            dateFormat="yyyy-MM-dd"
+          />
+        </label>
+        <div>
+          <strong>Products:</strong>
+          <ul>
+            {products.map((product, idx) => (
+              <ProductInput
+                key={idx}
+                product={product}
+                idx={idx}
+                onChange={handleProductChange}
+                onRemove={handleRemoveProduct}
+              />
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={handleAddProduct}
+            className="add-product-button"
+          >
+            Add Product
+          </button>
+        </div>
+        <div className="modal-buttons">
+          <button type="submit" className="submit-button">{mode === "edit" ? "Save" : "Create"}</button>
+          <button type="button" onClick={onClose} className="cancel-button">
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

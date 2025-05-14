@@ -14,6 +14,8 @@ async function PutList(
   const fullUrl = `${apiUrl}/api/shopping/${listId}`;
   const timeoutSeconds = 20;
 
+  console.log(`[PutList] PUT ${fullUrl}`);
+  console.log(`[PutList] Payload:`, updatedList);
   try {
     const response = await axios.put<ShoppingListType>(
       fullUrl,
@@ -27,6 +29,7 @@ async function PutList(
         timeout: 1000 * timeoutSeconds,
       }
     );
+    console.log(`[PutList] Success:`, response.data);
     return { data: response.data };
   } catch (error) {
     let errorMessage = `An unexpected error occurred during PUT request.`;
@@ -44,7 +47,7 @@ async function PutList(
         }
       }
     }
-    console.error(errorMessage);
+    console.error(`[PutList] Error:`, errorMessage);
     throw error;
   }
 }

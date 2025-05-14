@@ -73,8 +73,10 @@ body, html {
   text-align: center;
 }
 
-.submit-button {
+.auth-box .submit-button {
+  box-sizing: border-box;
   width: 100%;
+  display: block;
   padding: 10px 15px;
   background-color: #007bff;
   color: white;
@@ -85,6 +87,6 @@ body, html {
   transition: background-color 0.2s ease-in-out;
 }
 
-.submit-button:hover {
+.auth-box .submit-button:hover {
   background-color: #0056b3;
 }

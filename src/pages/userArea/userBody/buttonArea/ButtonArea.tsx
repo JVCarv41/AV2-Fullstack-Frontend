@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "./ButtonArea.css";
 import GetAllLists from "../../../../api/GetAllLists";
+import CreateListButton from "./CreateListButton";
+
 
 function ButtonArea({ setLists, setCount }) {
   const calledOnce = useRef(false);
@@ -20,16 +22,16 @@ function ButtonArea({ setLists, setCount }) {
 
   useEffect(() => {
     if (!calledOnce.current){
-    console.log('Calling "handleGetLists"');
-    calledOnce.current = true;
-    handleGetLists();
+      console.log('Calling "handleGetLists"');
+      calledOnce.current = true;
+      handleGetLists();
     }
   }, [])
 
   return (
     <div className="button-area">
-      <button onClick={handleGetLists}>Show Shopping Lists</button>
-      {/* You can render the lists here if you want */}
+      <button onClick={handleGetLists} className="button-area-button">Show Shopping Lists</button>
+      <CreateListButton setLists={setLists}/>
     </div>
   );
 }

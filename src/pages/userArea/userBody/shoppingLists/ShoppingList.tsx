@@ -3,7 +3,7 @@ import "./ShoppingListArea.css";
 import { ShoppingListType } from "../../../../interfaces/shoppingListInterfaces";
 import DeleteListButton from "./DeleteListButton";
 import EditListButton from "./EditListButton";
-import EditListModal from "./editList/EditListModal";
+import EditListModal from "../editList/EditListModal";
 
 interface ShoppingListProps {
   list: ShoppingListType;
@@ -43,6 +43,7 @@ function ShoppingList({ list, setLists }: ShoppingListProps) {
             );
             setShowEditModal(false);
           }}
+          setLists={setLists}
         />
       )}
       {Object.entries(productsByCategory).map(([category, products]) => (

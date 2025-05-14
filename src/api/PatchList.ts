@@ -14,6 +14,8 @@ async function PatchList(
   const fullUrl = `${apiUrl}/api/shopping/${listId}`;
   const timeoutSeconds = 20;
 
+  console.log(`[PatchList] PATCH ${fullUrl}`);
+  console.log(`[PatchList] Payload:`, partialList);
   try {
     const response = await axios.patch<ShoppingListType>(
       fullUrl,
@@ -27,6 +29,7 @@ async function PatchList(
         timeout: 1000 * timeoutSeconds,
       }
     );
+    console.log(`[PatchList] Success:`, response.data);
     return { data: response.data };
   } catch (error) {
     let errorMessage = `An unexpected error occurred during PATCH request.`;
@@ -44,7 +47,7 @@ async function PatchList(
         }
       }
     }
-    console.error(errorMessage);
+    console.error(`[PatchList] Error:`, errorMessage);
     throw error;
   }
 }

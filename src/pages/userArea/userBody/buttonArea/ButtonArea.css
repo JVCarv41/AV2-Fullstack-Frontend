@@ -8,7 +8,7 @@
   margin-left: 1%;
   margin-right: 2%;
 }
-.button-area button {
+.button-area-button {
   /* background: #b6fcd5; */
   box-sizing: border-box;
   width: 100%;
@@ -22,7 +22,7 @@
   cursor: pointer;
   transition: background 0.2s;
 }
-.button-area button:hover{
+.button-area-button:hover{
   background: #123456;
   color: #fafafa;
 }
