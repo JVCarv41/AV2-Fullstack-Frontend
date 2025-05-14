@@ -32,7 +32,7 @@ async function DeleteList(
       }
     );
 
-    console.log("Delete response from backend:", response.data);
+    console.log("List successfully deleted");
     return response.data;
   } catch (error) {
     let errorMessage = `An unexpected error occurred during ${method} request`;

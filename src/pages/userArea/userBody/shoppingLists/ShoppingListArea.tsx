@@ -10,7 +10,7 @@ interface ShoppingListAreaProps {
 
 function ShoppingListArea({ lists, setLists }: ShoppingListAreaProps) {
   return (
-    <div className="shopping-lists">
+    <div className="shopping-list-area">
       {lists.map((list) => (
         <ShoppingList key={list._id} list={list} setLists={setLists} />
       ))}

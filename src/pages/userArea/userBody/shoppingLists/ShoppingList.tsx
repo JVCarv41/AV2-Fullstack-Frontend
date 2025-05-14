@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ShoppingListArea.css";
-import { ShoppingListType } from "../../../../interfaces//shoppingListInterfaces";
+import { ShoppingListType } from "../../../../interfaces/shoppingListInterfaces";
 import DeleteListButton from "./DeleteListButton";
+import EditListButton from "./EditListButton";
+import EditListModal from "./editList/EditListModal";
 
 interface ShoppingListProps {
   list: ShoppingListType;
@@ -9,6 +11,7 @@ interface ShoppingListProps {
 }
 
 function ShoppingList({ list, setLists }: ShoppingListProps) {
+  const [showEditModal, setShowEditModal] = useState(false);
   const formattedDate = list.date ? list.date.slice(0, 10) : "";
 
   // Group products by category
@@ -25,17 +28,31 @@ function ShoppingList({ list, setLists }: ShoppingListProps) {
       <div className="shopping-list-header">
         <h2>Shopping List - {formattedDate}</h2>
         <div className="shopping-list-header-buttons">
-          <button>Edit List</button>
+          <EditListButton onEdit={() => setShowEditModal(true)} />
           <DeleteListButton listId={list._id} setLists={setLists} />
         </div>
       </div>
+      {showEditModal && (
+        <EditListModal
+          mode="edit"
+          list={list}
+          onClose={() => setShowEditModal(false)}
+          onSave={(updatedList) => {
+            setLists((prev) =>
+              prev.map((l) => (l._id === updatedList._id ? updatedList : l))
+            );
+            setShowEditModal(false);
+          }}
+        />
+      )}
       {Object.entries(productsByCategory).map(([category, products]) => (
         <div key={category}>
           <h3>{category}</h3>
           <ul>
             {products.map((product, idx) => (
               <li key={idx}>
-                {product.name} ({product.quantity} {product.unit})
+                {product.name} ({product.quantity} {product.unit}
+                {product.quantity > 1 && product.unit === "Unidade" || product.unit === "Pacote"? "s" : ""})
               </li>
             ))}
           </ul>

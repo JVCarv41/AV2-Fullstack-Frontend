@@ -1,0 +1,126 @@
+/* === EditListModal Styles === */
+.edit-list-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-list-modal {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  min-width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-list-modal h2 {
+  margin-bottom: 1.5rem;
+}
+
+.edit-list-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.edit-list-modal label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.edit-list-modal input,
+.edit-list-modal textarea {
+  margin-top: 0.3rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.modal-buttons button {
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background: #123456;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-buttons button[type="button"] {
+  background: #aaa;
+  color: #222;
+}
+
+.modal-buttons button:hover {
+  background: #816;
+  color: #fff;
+}
+
+.edit-list-add-product{
+background-color: #816;
+color: white;
+}
+
+/* === ProductInput Styles === */
+.edit-list-product-input {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edit-list-product-field {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.edit-list-product-field.name {
+  width: 90px;
+}
+.edit-list-product-field.category {
+  width: 90px;
+}
+.edit-list-product-field.quantity {
+  width: 60px;
+}
+.edit-list-product-field.unit {
+  width: 70px;
+}
+
+.edit-list-product-remove {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 4px;
+  transition: color 0.2s;
+}
+
+.edit-list-product-remove:hover {
+  color: #fff;
+  background: #816;
+  border-radius: 4px;
+  padding: 0 8px;
+}
