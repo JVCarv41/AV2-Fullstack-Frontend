@@ -1,4 +1,5 @@
 import axios from "axios";
+import ErrorHandler from "./ErrorHandler";
 
 export interface DeleteListResponse {
   message: string;
@@ -35,18 +36,7 @@ async function DeleteList(
     console.log("List successfully deleted");
     return response.data;
   } catch (error) {
-    let errorMessage = `An unexpected error occurred during ${method} request`;
-    if (axios.isAxiosError(error)) {
-      if (error.code === "ECONNABORTED") {
-        errorMessage = `${method} request to ${fullUrl} timed out after ${timeoutSeconds} seconds`;
-      } else if (error.code === "ERR_NETWORK") {
-        errorMessage = `Network error during ${method} request to ${fullUrl}`;
-      } else if (error.response) {
-        errorMessage =
-          error.response.data?.message ||
-          `${method} request failed with status ${error.response.status}`;
-      }
-    }
+    ErrorHandler("DeleteList", error);
     throw error;
   }
 }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ErrorHandler from './ErrorHandler';
 
 interface LoginRequest {
   email: string;
@@ -32,28 +33,13 @@ async function LoginUser(
         timeout: 1000 * timeoutSeconds,
       }
     );
-    
     console.log(`${method} request successful to ${fullUrl}`, {
       status: response.status,
-      data: { message: response.data.message, token: '******' } // Mask token in logs
+      data: { message: response.data.message, token: '******' }
     });
-    
     return response.data;
   } catch (error) {
-    let errorMessage = `An unexpected error occurred during ${method} request`;
-    if (axios.isAxiosError(error)) {
-      if (error.code === 'ECONNABORTED') {
-        errorMessage = `${method} request to ${fullUrl} timed out after ${timeoutSeconds} seconds`;
-      } else if (error.code === 'ERR_NETWORK') {
-        errorMessage = `Network error during ${method} request to ${fullUrl}`;
-      } else if (error.response) {
-        errorMessage =
-          error.response.data?.message ||
-          `${method} request failed with status ${error.response.status}`;
-      }
-    }
-    // Only one error log here
-    // console.error(errorMessage, error);
+    ErrorHandler('LoginUser', error);
     throw error;
   }
 }

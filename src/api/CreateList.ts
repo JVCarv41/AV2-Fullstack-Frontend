@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ShoppingListType } from "../interfaces/shoppingListInterfaces";
+import ErrorHandler from "./ErrorHandler";
 
 export interface CreateListResponse {
   data: ShoppingListType;
@@ -42,22 +43,7 @@ async function CreateList(
     console.log(`[CreateList] Success:`, response.data);
     return { data: response.data };
   } catch (error) {
-    let errorMessage = `An unexpected error occurred during POST request.`;
-    if (axios.isAxiosError(error)) {
-      if (error.code === "ECONNABORTED") {
-        errorMessage = `POST request to ${fullUrl} timed out after ${timeoutSeconds} seconds.`;
-      } else if (error.code === "ERR_NETWORK") {
-        errorMessage = `Network error during POST request to ${fullUrl}.`;
-      } else if (error.response) {
-        errorMessage =
-          error.response.data?.message ||
-          `POST request failed with status ${error.response.status}.`;
-        if (error.response.status === 401) {
-          errorMessage += " Please, verify if the token is valid.";
-        }
-      }
-    }
-    console.error(`[CreateList] Error:`, errorMessage);
+    ErrorHandler("CreateList", error);
     throw error;
   }
 }
