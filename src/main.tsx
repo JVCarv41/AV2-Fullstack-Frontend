@@ -1,15 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import ErrorPage from "./pages/ErrorPage";
+import ErrorPage from "./pages/Error/ErrorPage";
 import AuthPage from "./pages/authPage/AuthPage";
 import ProtectedRoute from "./pages/authPage/ProtectedRoute";
 import UserPage from "./pages/userArea/UserPage";
 
-import "./index.css";
+const ProtectedLayout = () => (
+  <ProtectedRoute>
+    <Outlet />
+  </ProtectedRoute>
+);
 
 const router = createBrowserRouter([
   {
@@ -19,16 +23,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/shopping-list",
-    element: (
-      <ProtectedRoute>
-        <UserPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedLayout />,
+    children: [
+      { index: true, element: <UserPage /> },
+      { path: ":id", element: <UserPage /> },
+    ],
   },
-  {
-    path: "/wip", //Remove later, just for easy debug
-    element: <UserPage />
-  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

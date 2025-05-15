@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../UserPage.css";
+import "./userHeader.css";
 
 function UserHeader() {
   const navigate = useNavigate();
@@ -9,17 +9,20 @@ function UserHeader() {
     localStorage.removeItem("authToken");
     navigate("/");
   }
+  function handleHome(){
+    navigate("/shopping-list")
+  }
 
   return (
     <div className="user-header">
       <header>
         <div className="user-header-text">
-          <h1>J-Market</h1>
+          <h1>TS-Market</h1>
           <h2>Your Shopping Lists</h2>
         </div>
         <section>
-          <button onClick={handleLogout}>Logout</button>
-          {/* Add more buttons here */}
+          <button className="user-header-button" onClick={handleHome}>Home</button>
+          <button className="user-header-button" onClick={handleLogout}>Logout</button>
         </section>
       </header>
     </div>

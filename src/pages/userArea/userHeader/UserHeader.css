@@ -1,0 +1,64 @@
+.user-header {
+  box-sizing: border-box;
+  width: 100%;
+  background: #00331a;
+  color: #fff;
+  padding: 2rem 1rem 1.5rem 1rem;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* position: sticky; */
+  top: 0;
+  z-index: 10;
+}
+
+.user-header header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-header-text {
+  width: auto;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.user-header h2 {
+  margin: 0;
+  margin-top: 0.5rem;
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: #b6fcd5;
+}
+
+.user-header section {
+  margin-top: 0;
+  width: auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.user-header .user-header-button {
+  background: #b6fcd5;
+  color: #00331a;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  margin-right: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.user-header .user-header-button:hover {
+  background: #8be9b3;
+}

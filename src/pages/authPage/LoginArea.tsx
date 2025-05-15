@@ -3,58 +3,40 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LoginUser from '../../api/LoginUser';
 
-interface LoginAreaProps{
-  backendUrl:string;
-}
-interface LoginResponse {
-  message: string;
-  token: string;
-}
-
 function LoginArea({backendUrl}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setError('');
 
     if (!email || !password) {
-      setError('Email and password are required.');
+      toast.error('Email and password are required.');
       return;
     }
 
     try {
       setIsLoading(true);
-      
+
       if (!backendUrl) {
         throw new Error('Backend URL is not configured');
       }
-      
+
       const response = await LoginUser(backendUrl, email, password);
-      
+
       console.log('Login successful:', response.message);
-      toast.success("Login successful!")
-      
+      toast.success("Login successful!");
+
       // Store the JWT token in localStorage
       localStorage.setItem('authToken', response.token);
-      
+
       // Redirect to shopping list page after login
       navigate('/shopping-list'); // Change the path as needed
 
     } catch (err: any) {
-      // Check for Axios error and access error.response?.data.error
-      let errorMessage = 'Login failed';
-      if (err.response?.data?.error) {
-        errorMessage = err.response.data.error;
-      } else if (err.message) {
-        errorMessage = err.message;
-      }
-      toast.error(errorMessage)
-      console.error('Login error:', err);
+      // ErrorHandler in LoginUser handles errors and toasts
     } finally {
       setIsLoading(false);
     }
@@ -83,9 +65,6 @@ function LoginArea({backendUrl}) {
             minLength={8}
           />
         </div>
-        
-        {error && <p className="error-message">{error}</p>}
-        
         <button 
           type="submit" 
           className="submit-button"

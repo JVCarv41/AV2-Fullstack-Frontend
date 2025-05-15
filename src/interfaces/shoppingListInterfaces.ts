@@ -10,4 +10,3 @@ export interface ShoppingListType {
   date: string;
   products: ProductType[];
 }
-

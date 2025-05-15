@@ -1,5 +1,4 @@
-import React from "react";
-import { ProductType } from "../../../../interfaces/shoppingListInterfaces";
+import { ProductType } from "../../../interfaces/shoppingListInterfaces";
 
 interface ProductInputProps {
   product: ProductType;
@@ -41,7 +40,7 @@ function ProductInput({ product, idx, onChange, onRemove }: ProductInputProps) {
           onChange={e => onChange(idx, "unit", e.target.value)}
           className="product-field unit"
         >
-          <option value="">Select unit</option>
+          <option value="Unidade">Select unit</option>
           {unitOptions.map(option => (
             <option key={option} value={option}>{option}</option>
           ))}

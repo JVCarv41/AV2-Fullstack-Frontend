@@ -1,13 +1,22 @@
 .button-area {
   box-sizing: border-box;
   width: 25%;
-  height: 94%;
   align-self: stretch;
   border: 10px solid #123456;
   margin-top: 3%;
   margin-left: 1%;
   margin-right: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  position: sticky;
+  top: 0; /* This is crucial! */
+  align-self: flex-start; /* Optional: prevents stretching if not desired */
+  z-index: 10; /* Optional: ensures it stays above other elements */
 }
+
+
 .button-area-button {
   /* background: #b6fcd5; */
   box-sizing: border-box;
@@ -16,12 +25,12 @@
   border: 10px solid gold;
   border-radius: 6px;
   padding: 0.5rem 1.2rem;
-  margin-right: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .button-area-button:hover{
   background: #123456;
   color: #fafafa;

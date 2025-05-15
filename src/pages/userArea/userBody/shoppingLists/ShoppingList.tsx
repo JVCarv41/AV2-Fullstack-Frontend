@@ -3,7 +3,8 @@ import "./ShoppingListArea.css";
 import { ShoppingListType } from "../../../../interfaces/shoppingListInterfaces";
 import DeleteListButton from "./DeleteListButton";
 import EditListButton from "./EditListButton";
-import EditListModal from "../editList/EditListModal";
+import EditListModal from "../../listBody/ListBody";
+import { useNavigate } from "react-router-dom";
 
 interface ShoppingListProps {
   list: ShoppingListType;
@@ -11,8 +12,8 @@ interface ShoppingListProps {
 }
 
 function ShoppingList({ list, setLists }: ShoppingListProps) {
-  const [showEditModal, setShowEditModal] = useState(false);
   const formattedDate = list.date ? list.date.slice(0, 10) : "";
+  const navigate = useNavigate();
 
   // Group products by category
   const productsByCategory: { [category: string]: typeof list.products } = {};
@@ -28,24 +29,12 @@ function ShoppingList({ list, setLists }: ShoppingListProps) {
       <div className="shopping-list-header">
         <h2>Shopping List - {formattedDate}</h2>
         <div className="shopping-list-header-buttons">
-          <EditListButton onEdit={() => setShowEditModal(true)} />
+          <EditListButton
+            onEdit={() => navigate(`/shopping-list/${list._id}`)}
+          />
           <DeleteListButton listId={list._id} setLists={setLists} />
         </div>
       </div>
-      {showEditModal && (
-        <EditListModal
-          mode="edit"
-          list={list}
-          onClose={() => setShowEditModal(false)}
-          onSave={(updatedList) => {
-            setLists((prev) =>
-              prev.map((l) => (l._id === updatedList._id ? updatedList : l))
-            );
-            setShowEditModal(false);
-          }}
-          setLists={setLists}
-        />
-      )}
       {Object.entries(productsByCategory).map(([category, products]) => (
         <div key={category}>
           <h3>{category}</h3>
@@ -53,7 +42,11 @@ function ShoppingList({ list, setLists }: ShoppingListProps) {
             {products.map((product, idx) => (
               <li key={idx}>
                 {product.name} ({product.quantity} {product.unit}
-                {product.quantity > 1 && product.unit === "Unidade" || product.unit === "Pacote"? "s" : ""})
+                {(product.quantity > 1 && product.unit === "Unidade") ||
+                product.unit === "Pacote"
+                  ? "s"
+                  : ""}
+                )
               </li>
             ))}
           </ul>

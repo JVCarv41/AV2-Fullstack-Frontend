@@ -1,34 +1,21 @@
 import React, { useState } from "react";
-import EditListModal from "../editList/EditListModal";
 import { ShoppingListType } from "../../../../interfaces/shoppingListInterfaces";
-import "../../userBody/editList/EditList.css"
+import { useNavigate } from "react-router-dom";
 
 interface ShoppingListProps {
   setLists: React.Dispatch<React.SetStateAction<ShoppingListType[]>>;
 }
 
 function CreateListButton({ setLists }: ShoppingListProps) {
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const navigate = useNavigate();
 
   function handleCreateList() {
-    setShowCreateModal(true);
-  }
-  function handleSaveNewList(newList: ShoppingListType) {
-    setShowCreateModal(false);
-    setLists(prev => [...prev, newList]); 
+    navigate('/shopping-list/new')
   }
 
   return (
     <>
       <button onClick={handleCreateList} className="button-area-button">Create New List</button>
-      {showCreateModal && (
-        <EditListModal
-          mode="create"
-          onClose={() => setShowCreateModal(false)}
-          onSave={handleSaveNewList}
-          setLists={setLists}
-        />
-      )}
     </>
   );
 }
