@@ -135,7 +135,6 @@ function ListBody({ listId }: ListBodyProps) {
       })
       .catch((err) => {
         console.error("Erro ao salvar a lista:", err);
-        alert("Erro ao salvar a lista.");
       });
   };
 

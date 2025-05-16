@@ -8,7 +8,8 @@ function AuthPage() {
 
   return (
     <div className="auth-page">
-      <h1>TS-Market</h1>
+      <h1 className="auth-page-title">TS-Market</h1>
+      <h2 className="auth-page-title">Your Shopping Lists, online. </h2>
       <div className="auth-container">
         <SignUpArea backendUrl={backendUrl}/>
         <LoginArea backendUrl={backendUrl} />

@@ -40,7 +40,7 @@ function ProductInput({ product, idx, onChange, onRemove }: ProductInputProps) {
           onChange={e => onChange(idx, "unit", e.target.value)}
           className="product-field unit"
         >
-          <option value="Unidade">Select unit</option>
+          <option value="">Select unit</option>
           {unitOptions.map(option => (
             <option key={option} value={option}>{option}</option>
           ))}
