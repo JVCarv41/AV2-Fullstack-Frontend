@@ -42,8 +42,8 @@ function ShoppingList({ list, setLists }: ShoppingListProps) {
             {products.map((product, idx) => (
               <li key={idx}>
                 {product.name} ({product.quantity} {product.unit}
-                {(product.quantity > 1 && product.unit === "Unidade") ||
-                product.unit === "Pacote" || product.unit === "Caixa"
+                {(product.quantity > 1 && product.unit === "Unidade" ||
+                product.unit === "Pacote" || product.unit === "Caixa")
                   ? "s"
                   : ""}
                 )
