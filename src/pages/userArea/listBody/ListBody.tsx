@@ -105,7 +105,7 @@ function ListBody({ listId }: ListBodyProps) {
     } else if (productsChanged) {
       return PatchList(apiUrl, token, listId, { products: updated.products });
     } else {
-      return Promise.resolve(); // Nada a mudar
+      return Promise.resolve();
     }
   };
 

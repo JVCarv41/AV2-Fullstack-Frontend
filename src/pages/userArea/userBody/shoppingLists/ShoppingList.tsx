@@ -10,6 +10,19 @@ interface ShoppingListProps {
   list: ShoppingListType;
   setLists: React.Dispatch<React.SetStateAction<ShoppingListType[]>>;
 }
+function unitNameHandler(productQuantity: number, productUnit: string): string {
+  const pluralMap: Record<string, string> = {
+    Kg: "Kg",
+    g: "g",
+    L: "L",
+    ml: "ml",
+    Unit: "Units",
+    Package: "Packages",
+    Box: "Boxes",
+  };
+  if (productQuantity <= 1) return productUnit;
+  return pluralMap[productUnit] ?? productUnit + "s";
+}
 
 function ShoppingList({ list, setLists }: ShoppingListProps) {
   const formattedDate = list.date ? list.date.slice(0, 10) : "";
@@ -41,12 +54,7 @@ function ShoppingList({ list, setLists }: ShoppingListProps) {
           <ul>
             {products.map((product, idx) => (
               <li key={idx}>
-                {product.name} ({product.quantity} {product.unit}
-                {(product.quantity > 1 && (product.unit === "Unidade" ||
-                product.unit === "Pacote" || product.unit === "Caixa"))
-                  ? "s"
-                  : ""}
-                )
+                {product.name} ({product.quantity} {unitNameHandler(product.quantity, product.unit)})
               </li>
             ))}
           </ul>

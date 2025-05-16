@@ -7,7 +7,7 @@ interface ProductInputProps {
   onRemove: (idx: number) => void;
 }
 
-const unitOptions = ["Kg", "g", "L", "ml", "Unidade", "Pacote", "Caixa"];
+const unitOptions = ["Kg", "g", "L", "ml", "Unit", "Package", "Box"];
 
 function ProductInput({ product, idx, onChange, onRemove }: ProductInputProps) {
   return (
