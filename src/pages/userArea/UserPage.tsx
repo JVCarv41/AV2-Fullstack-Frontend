@@ -12,9 +12,7 @@ function UserPage() {
   return (
     <div className="user-page">
       <UserHeader />
-      <div className="user-body">
-        {renderList ? <ListBody listId={listId} /> : <UserBody />}
-      </div>
+      {renderList ? <ListBody listId={listId} /> : <UserBody />}
     </div>
   );
 }

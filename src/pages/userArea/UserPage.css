@@ -1,4 +1,4 @@
-/* Main Page */
+/* Main Page Layout */
 .user-page {
   box-sizing: border-box;
   min-height: 100vh;
@@ -7,9 +7,31 @@
   flex-direction: column;
   background: #fafafa;
 }
-.user-body{
+
+.user-body {
   box-sizing: border-box;
-  border: 6px solid purple;
-  flex: 1;
+  /* border: 8px solid purple; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  /* flex: 1 1 0; */
+  min-height: 0;
   overflow: visible;
+  margin: 0;
+}
+
+/* Responsivity */
+@media (max-width: 768px) {
+  .user-body {
+    flex-direction: column-reverse;
+    border-width: 3px; /* Optional visual cue */
+  }
+}
+
+@media (max-width: 480px) {
+  .user-body {
+    border-width: 2px; /* Optional */
+    gap: 0.5rem;
+  }
 }

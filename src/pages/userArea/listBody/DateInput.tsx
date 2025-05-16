@@ -50,6 +50,8 @@ const DateInput: React.FC<DateInputProps> = ({
           required
           className="date-picker-input"
           calendarClassName="date-picker-calendar"
+          popperPlacement="bottom-start"
+          popperClassName="custom-datepicker-popper"
         />
       </div>
     </label>

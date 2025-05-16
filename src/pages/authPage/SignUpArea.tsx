@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify'
 import registerUser from '../../api/RegisterUser';
 
-interface SignUpAreaProps{
-  backendUrl:string;
-}
-
 function SignUpArea({backendUrl}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -51,9 +47,7 @@ function SignUpArea({backendUrl}) {
       setPassword('');
       
     } catch (err) {
-      // setError();
-      toast.error(err instanceof Error ? err.message : 'Registration failed')
-      console.error('Registration error:', err);
+      //ErrorHandler will deal with the error
     } finally {
       setIsLoading(false);
     }
@@ -90,15 +84,7 @@ function SignUpArea({backendUrl}) {
             required 
             minLength={8}
           />
-        </div>
-        
-        {error && <p className="error-message">{error}</p>}
-        {successMessage && (
-          <p className="success-message" style={{ color: 'green' }}>
-            {successMessage}
-          </p>
-        )}
-        
+        </div>        
         <button 
           type="submit" 
           className="submit-button"

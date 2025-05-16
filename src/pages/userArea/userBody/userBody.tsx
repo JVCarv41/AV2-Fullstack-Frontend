@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ShoppingListType } from "../../../interfaces/shoppingListInterfaces";
 import ShoppingListArea from "./shoppingLists/ShoppingListArea"
 import ButtonArea from "./buttonArea/ButtonArea";
-
+import "../UserPage"
 function userBody() {
   const [lists, setLists] = useState<ShoppingListType[]>([]);
   const [count, setCount] = useState(0);

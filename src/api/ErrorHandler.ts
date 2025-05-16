@@ -22,7 +22,8 @@ function ErrorHandler(requestType: string, error: any) {
         toast.error('Please, ensure you have chosen a unit for all products.')
     }else{
         // Show toast notification
-        toast.error(`${requestType} failed: ${message}`);
+        console.error(`${requestType} failed: ${message}`);
+        toast.error(`Erro: ${message}`);
     }
 }
 

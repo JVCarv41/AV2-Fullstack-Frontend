@@ -11,6 +11,7 @@ interface ShoppingListAreaProps {
 function ShoppingListArea({ lists, setLists }: ShoppingListAreaProps) {
   return (
     <div className="shopping-list-area">
+      <h2>Your Shopping Lists:</h2>
       {lists.map((list) => (
         <ShoppingList key={list._id} list={list} setLists={setLists} />
       ))}

@@ -172,7 +172,7 @@ function ListBody({ listId }: ListBodyProps) {
             Add Product
           </button>
         </div>
-        <div className="modal-buttons">
+        <div className="submission-buttons">
           <button type="submit" className="submit-button">
             {mode === "edit" ? "Save" : "Create"}
           </button>

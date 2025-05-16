@@ -1,22 +1,20 @@
+/* ===== BODY LAYOUT ===== */
 .list-container {
   box-sizing: border-box;
   display: flex;
-  flex: 1;
   flex-direction: column;
   align-items: center;
   background: #fff;
   padding: 2.5rem 3rem;
   border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 100, 0, 0.2); /* dark green shadow */
   text-align: center;
-
-  margin-top: 3%;
-  margin-bottom: 3%;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin: 20px auto;
+  width: calc(100% - 40px);
+  max-width: 1200px;
 }
 
-/* Adjust form inside .edit-list-container */
+/* Form Elements */
 .list-container form {
   display: flex;
   flex-direction: column;
@@ -25,7 +23,6 @@
   overflow: auto;
 }
 
-/* List styles */
 .list-container ul {
   max-height: 40vh;
   overflow-y: auto;
@@ -34,7 +31,6 @@
   width: 100%;
 }
 
-/* Labels */
 .list-container label {
   display: flex;
   flex-direction: column;
@@ -44,165 +40,164 @@
   box-sizing: border-box;
 }
 
-/* Date Input */
+/* ===== DateInput Specific Styles ===== */
 .list-container .date-input {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3%;
-}
-
-.list-container .date-picker-input {
+  flex-direction: column;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
   box-sizing: border-box;
-  border: 2px solid #816;
-  border-radius: 8px;
-  color: brown;
 }
 
-.list-container .date-picker-calendar {
-  background-color: #f8f8ff;
-  border: 2px solid #816;
+.date-picker {
+  margin-top: 0.3rem;
 }
 
-/* React Datepicker Hover & Selected Styles */
-.react-datepicker__day:hover {
-  background-color: #816 !important;
-  color: #fff !important;
-  border-radius: 50%;
+.date-picker-input {
+  padding: 0.5rem;
+  border: 1px solid #676e78;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+  color: #013220;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.react-datepicker__day--selected,
-.react-datepicker__day--keyboard-selected {
-  background-color: #816 !important;
-  color: #fff !important;
-  border-radius: 50%;
+.date-picker-calendar {
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
 }
 
-.react-datepicker__navigation:hover {
-  background-color: green;
-  color: #fff;
-  border-radius: 4px;
+.custom-datepicker-popper {
+  z-index: 9999;
+}
+.date-picker-calendar .react-datepicker__day,
+.date-picker-calendar .react-datepicker__day-name,
+.date-picker-calendar .react-datepicker__current-month,
+.date-picker-calendar .react-datepicker__month-year {
+  color: #013220 !important;
+}
+.date-picker-calendar .react-datepicker__navigation-icon::before {
+  border-color: #013220 !important;
 }
 
-/* Inputs, Textareas, Selects */
+/* Inputs */
 .list-container input,
 .list-container textarea,
 .list-container select {
   margin-top: 0.3rem;
   padding: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid #676e78;
   border-radius: 6px;
   font-size: 1rem;
   max-width: 100%;
   box-sizing: border-box;
   background: #fff;
-  color: #222;
+  color: #013220; /* forest green */
 }
 
 /* Buttons */
-.list-container button {
-  all: unset;
+.list-container .add-product-button,
+.product-remove-button,
+.list-container .submit-button,
+.list-container .cancel-button {
   padding: 0.5rem 1.2rem;
   border-radius: 6px;
-  font-weight: bold;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.3s ease;
   display: inline-block;
   text-align: center;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  border: 5px solid #00331a;
+  color: #00331a;
 }
 
-.list-container button:hover {
-  background-color: chartreuse;
-}
-
-.list-container .add-product-button {
-  background-color: aqua;
-}
-
-.list-container .add-product-button:hover {
-  background-color: red;
-  color: blue;
-}
-
-/* Modal Buttons Container */
-.list-container .modal-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-}
-
-/* Submit Button */
-.list-container .submit-button {
-  background-color: purple;
-  width: 12%;
-  color: #222;
-}
-
-.list-container .submit-button:hover {
-  background-color: red;
-  color: #fff;
-}
-
-/* Cancel Button */
-.list-container .cancel-button {
-  background-color: #222;
-  width: 12%;
-  color: white;
-}
-
+.list-container .add-product-button:hover,
+.product-remove-button:hover,
+.list-container .submit-button:hover,
 .list-container .cancel-button:hover {
-  background-color: yellowgreen;
-  color: #222;
+  background-color: #00331a;
+  color: #fafafa;
 }
 
-/* === ProductInput Styles === */
+/* Product Input Styles */
 .list-container .product-input {
   box-sizing: border-box;
-  border: 5px solid #454545;
   margin-bottom: 0.5rem;
   display: flex;
   flex-direction: row;
   align-items: stretch;
   justify-content: space-between;
   max-width: 100%;
-}
-
-.list-container .product-input > * {
-  flex-shrink: 0;
-  margin: 4px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 4px;
+  gap: 8px;
 }
 
 .list-container .product-fields-grid {
-  width: 80%;
+  width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-/* Product fields */
 .list-container .product-field {
   padding: 0.3rem 0.5rem;
-  border: 1px solid #e60606;
   border-radius: 6px;
   font-size: 1rem;
   box-sizing: border-box;
+  flex: 1 1 200px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #004d00;
 }
 
-/* Product field widths */
-.list-container .product-field.name,
-.list-container .product-field.category,
-.list-container .product-field.quantity,
-.list-container .product-field.unit {
-  width: 50%;
+.list-container .submission-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
+  width: fit-content;
+  margin: 0 auto;
 }
 
-/* Remove button */
-.list-container .product-remove-button {
-  background: none;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
+/* Responsive Body */
+@media (max-width: 768px) {
+  .list-container {
+    padding: 1.5rem 1rem;
+    margin: 15px auto;
+    width: calc(100% - 30px);
+  }
+
+  .list-container .product-input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .list-container .product-fields-grid {
+    width: 100%;
+  }
+
+  .product-remove-button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 }
 
-.list-container .product-remove-button:hover {
-  background-color: rgba(30, 30, 30, 0.2);
-  color: #222;
+@media (max-width: 480px) {
+  .list-container {
+    padding: 1rem;
+    margin: 10px auto;
+    width: calc(100% - 20px);
+  }
 }
