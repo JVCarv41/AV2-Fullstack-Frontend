@@ -11,7 +11,6 @@ async function DeleteList(
   token: string,
   listId: string
 ): Promise<DeleteListResponse> {
-  const method = "DELETE";
   const fullUrl = `${apiUrl}/api/shopping/${listId}`;
   const timeoutSeconds = 20;
 

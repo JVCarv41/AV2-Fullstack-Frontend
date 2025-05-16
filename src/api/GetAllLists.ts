@@ -10,7 +10,6 @@ async function GetAllLists(
   apiUrl: string,
   token: string
 ): Promise<GetAllListsResponse> {
-  const method = "GET";
   const fullUrl = `${apiUrl}/api/shopping`;
   const timeoutSeconds = 20;
 

@@ -11,7 +11,6 @@ async function GetListById(
   token: string,
   listId: string
 ): Promise<GetListByIdResponse> {
-  const method = "GET";
   const fullUrl = `${apiUrl}/api/shopping/${listId}`;
   const timeoutSeconds = 20;
 
